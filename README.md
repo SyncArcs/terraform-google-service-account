@@ -21,12 +21,16 @@ To use this module, you should have Terraform installed and configured for GCP. 
 ```hcl
 module "service-account" {
   source           = "git::https://github.com/SyncArcs/terraform-google-service-account.git?ref=v1.0.0"
-  name             = "dev"
-  environment      = "test"
-  key_algorithm    = "KEY_ALG_RSA_2048"
-  public_key_type  = "TYPE_X509_PEM_FILE"
-  private_key_type = "TYPE_GOOGLE_CREDENTIALS_FILE"
-  roles            = ["roles/iam.serviceAccountUser"]
+  service_account = [
+    {
+      name          = "test"
+      display_name  = "Single Service Account"
+      description   = "Single Account Description"
+      roles         = ["roles/viewer"] # Single role
+      generate_keys = false
+    }
+
+  ]
 }
 ```
 This example demonstrates how to create various GCP resources using the provided modules. Adjust the input values to suit your specific requirements.
